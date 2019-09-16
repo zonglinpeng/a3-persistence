@@ -29,6 +29,33 @@
       "username": "",
       "password": "",
       "cars": []
+    },
+    {
+      "username": "wodeshijie",
+      "password": "qwe",
+      "cars": [
+        {
+          "id": 1,
+          "model": "SaaS",
+          "year": 1997,
+          "mpg": 12,
+          "value": 9800
+        },
+        {
+          "id": 2,
+          "model": "Nissan",
+          "year": 1997,
+          "mpg": 12,
+          "value": 9800
+        },
+        {
+          "id": 3,
+          "model": "SaaS",
+          "year": 1997,
+          "mpg": 12,
+          "value": 9800
+        }
+      ]
     }
   ]
 }

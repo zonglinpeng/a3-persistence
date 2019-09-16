@@ -37,7 +37,7 @@ const session = require('express-session');
 //Favicon
 const favicon = require('serve-favicon');
 var path = require('path')
-app.use(favicon(path.join(__dirname, 'public' , 'images', 'icon.png'))); //TODO
+app.use(favicon(path.join(__dirname, 'public' , 'images', 'icon.png'))); 
 //Cookie
 app.use(cookieParser());
 //Morgan
@@ -130,19 +130,18 @@ db.defaults( { posts : [
     }
 ] }).write()
 
-const getAllData = function() { //TODO: dup
+const getAllData = function() {
   dataAll =  [];
   let i = 0;
   while (true) {
-      // let row = db.get(`posts[${i}]`).get('cars').value();
       let row = db
         .get(`posts[${i}]`)
         .value();
-      if (row) {
+      if (row) { //row is not empty
         console.log('db cars: ' + row)
         dataAll.push(row);
       }
-      else {
+      else { //end of table is reached
         break;
       }
       i++;
