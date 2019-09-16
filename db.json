@@ -12,25 +12,53 @@
           "value": 20000
         },
         {
-          "id": 1,
+          "id": 3,
           "model": "Nissan",
           "year": 1997,
-          "mpg": 20,
-          "value": 19780
+          "mpg": 21,
+          "value": 20780
         },
         {
-          "id": 2,
-          "model": "Nissan",
-          "year": 2019,
-          "mpg": 20,
-          "value": 20000
-        },
-        {
-          "id": 1,
+          "id": 4,
           "model": "Nissan",
           "year": 1997,
-          "mpg": 20,
-          "value": 19780
+          "mpg": 21,
+          "value": 20780
+        },
+        {
+          "id": 5,
+          "model": "Nissan",
+          "year": 1997,
+          "mpg": 21,
+          "value": 20780
+        },
+        {
+          "id": 6,
+          "model": "Nissan",
+          "year": 1997,
+          "mpg": 21,
+          "value": 20780
+        },
+        {
+          "id": 7,
+          "model": "Nissan",
+          "year": 1997,
+          "mpg": 21,
+          "value": 20780
+        },
+        {
+          "id": 8,
+          "model": "Nissan",
+          "year": 1997,
+          "mpg": 21,
+          "value": 20780
+        },
+        {
+          "id": 9,
+          "model": "Nissan",
+          "year": 1997,
+          "mpg": 21,
+          "value": 20780
         }
       ]
     }

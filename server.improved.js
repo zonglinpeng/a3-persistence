@@ -18,6 +18,10 @@ const bodyParser = require('body-parser')
 const passport = require('passport');
 const Local = require('passport-local').Strategy;
 const session = require('express-session');
+//Favicon
+const favicon = require('serve-favicon'),
+app.use(favicon(__dirname + '/public/img/favicon.png'));
+
 //Static
 app.use(express.static('public'))
 app.use(bodyParser.json())
@@ -147,8 +151,7 @@ const addCar = function (body) {
   let year = body.year;
   let mpg = body.mpg;
   let weight = (year*1 === 0 || mpg*1 === 0) ? 0 : 1;
-  body.value = (mpg*1000 - (2019-year)*10) * weight;
-  console.log('body: ' + body)
+  body.value = (mpg*1000 - (2019-year)*100) * weight;
   db.get('posts')
     .find({ username: auth.username })
     .get('cars')
@@ -160,29 +163,42 @@ const addCar = function (body) {
 const deleteCar = function (body) {
   db.get('posts')
     .find({ username: auth.username })
-    .remove({ cars: body.id })
+    .get('cars')
+    .remove({ id: body.id })
     .write();
-  console.log('del: ' + dataAll);
+  console.log('del: ' + body.model);
 }
 
 const modifyCar = function (body) {
+  let year = body.year;
+  let mpg = body.mpg;
+  let weight = (year*1 === 0 || mpg*1 === 0) ? 0 : 1;
+  body.value = (mpg*1000 - (2019-year)*100) * weight;
   db.get('posts')
     .find({ username: auth.username })
-    .find({ cars: body.id})
+    .get('cars')
+    .find({ id: body.id})
     .assign({
       id: body.id,
       name: body.name,
-      model: body.age,
-      year: body.gender,
-      mpg: body.hobby,
-      value: () => {
-        let year = body.year;
-        let mpg = body.mpg;
-        let weight = (year*1 === 0 || mpg*1 === 0) ? 0 : 1;
-        return (mpg*1000 - (2019-year)*10) * weight;
-      }
+      model: body.model,
+      year: body.year,
+      mpg: body.mpg,
+      value: body.value
   }).write()
-  console.log('mod: ' + dataAll);
+  console.log('mod: ' + body.model);
+}
+
+const removeDuplicate = function () {
+  const newList = db.get('post')
+    .get('posts')
+    .find({ username: auth.username })
+    .get('cars')
+    .uniqBy('id')
+    .value()
+
+  db.set('posts', newList)
+    .write()
 }
 
 
@@ -194,7 +210,7 @@ app.get('/', (request, response) => {
 
 app.get('/getAll', (request, response) => {
   console.log('get getall: ' + dataAll);
-  response.send(db.get('posts').find({ username: auth.username }));
+  response.send(db.get('posts').find({ username: auth.username }).get('cars'));
 });
 
 
