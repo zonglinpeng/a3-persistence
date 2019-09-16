@@ -1,0 +1,38 @@
+{
+  "posts": [
+    {
+      "username": "aaron",
+      "password": "aaronn",
+      "cars": [
+        {
+          "id": 0,
+          "model": "sample",
+          "year": 2019,
+          "mpg": 23,
+          "value": 20000
+        },
+        {
+          "id": 1,
+          "model": "Nissan",
+          "year": 1997,
+          "mpg": 20,
+          "value": 19780
+        },
+        {
+          "id": 2,
+          "model": "Nissan",
+          "year": 2019,
+          "mpg": 20,
+          "value": 20000
+        },
+        {
+          "id": 1,
+          "model": "Nissan",
+          "year": 1997,
+          "mpg": 20,
+          "value": 19780
+        }
+      ]
+    }
+  ]
+}
