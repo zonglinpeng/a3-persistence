@@ -26,9 +26,10 @@ registerButton.onclick = function (e) {
   })
   .then(res => {
       console.log(res)
-      if (response.status == 200){
+      if (res.status == 200){
         alert("New account has been created.");
-      } else if (response.status == 405){
+        location.href = './index.html'
+      } else if (res.status == 405){
         alert("Username has been used.")
       }else{
         alert("New account cannot be created.")

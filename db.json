@@ -8,52 +8,26 @@
     {
       "username": "zpeng",
       "password": "qwe",
-      "cars": [
-        {
-          "id": 1,
-          "model": "Honda",
-          "year": 123,
-          "mpg": 123,
-          "value": -66600
-        },
-        {
-          "id": 3,
-          "model": "Nissan",
-          "year": null,
-          "mpg": null,
-          "value": 0
-        },
-        {
-          "id": 1,
-          "model": "Nissan",
-          "year": null,
-          "mpg": null,
-          "value": 0
-        },
-        {
-          "id": 1,
-          "model": "Honda",
-          "year": 2134,
-          "mpg": 4,
-          "value": 15500
-        },
-        {
-          "id": 2,
-          "model": "Honda",
-          "year": 2134,
-          "mpg": 3,
-          "value": 14500
-        }
-      ]
-    },
-    {
-      "username": "zpeng",
-      "password": "qwe",
       "cars": []
     },
     {
       "username": "zpeng",
+      "password": "zpengg",
+      "cars": []
+    },
+    {
+      "username": "tre",
+      "password": "aaronn",
+      "cars": []
+    },
+    {
+      "username": "aarona",
       "password": "asd",
+      "cars": []
+    },
+    {
+      "username": "",
+      "password": "",
       "cars": []
     }
   ]

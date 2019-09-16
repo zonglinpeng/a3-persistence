@@ -4,6 +4,9 @@
 
 let ID = 1;
 
+const logout = function() {
+  location.href = './index.html'
+}
 // GET
 const createHeader = function() {
   database.innerHTML = ""
@@ -127,11 +130,14 @@ const infoAlert = function(){
 const addButton = document.getElementById('add');
 const deleteButton = document.getElementById('del');
 const modifyButton = document.getElementById('mod');
-const infoIcon = document.getElementById('info');
+const infoIcon = document.getElementById('info');                    
+const logoutButton = document.getElementById('logout');                      
+
 addButton.onclick = addCar;
 deleteButton.onclick = deleteCar;
 modifyButton.onclick = modifyCar;
 infoIcon.onclick = infoAlert;
+logoutButton.onclick = logout;
 
 window.onload = function() {
   getCar()

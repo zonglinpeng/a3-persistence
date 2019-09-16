@@ -137,20 +137,12 @@ const getAllData = function() { //TODO: dup
       // let row = db.get(`posts[${i}]`).get('cars').value();
       let row = db
         .get(`posts[${i}]`)
-        // .find({ username: auth.username })
-        // .get('cars')
         .value();
-      // console.log(db
-      //   .get(`posts[${i}]`)
-      //   .find({ username: auth.username })
-      //   .get('cars')
-      //   .value())
       if (row) {
         console.log('db cars: ' + row)
         dataAll.push(row);
       }
       else {
-        console.log('db alldata: ' + dataAll);
         break;
       }
       i++;
@@ -162,17 +154,14 @@ getAllData();
 // - - - - - - DB HANDLERS - - - - - - 
 const addUsr = function (body) {
   console.log('register: ' + body.username);
-  let check = db.get('post')
-    .get('posts')
-    .find({ username: body.username })
-    .get('cars')
-  if(check !== undefined) return false
-  else{
+  let check = dataAll.find( __user => __user.username === body.username )
+  if(check === undefined){
     db.get('posts')
     .push(body)
     .write();
+    return true
   }
-  return true
+  return false
 }
 
 const addCar = function (body) {
