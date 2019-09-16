@@ -3,64 +3,58 @@
     {
       "username": "aaron",
       "password": "aaronn",
+      "cars": []
+    },
+    {
+      "username": "zpeng",
+      "password": "qwe",
       "cars": [
         {
-          "id": 0,
-          "model": "sample",
-          "year": 2019,
-          "mpg": 23,
-          "value": 20000
+          "id": 1,
+          "model": "Honda",
+          "year": 123,
+          "mpg": 123,
+          "value": -66600
         },
         {
           "id": 3,
           "model": "Nissan",
-          "year": 1997,
-          "mpg": 21,
-          "value": 20780
+          "year": null,
+          "mpg": null,
+          "value": 0
         },
         {
-          "id": 4,
+          "id": 1,
           "model": "Nissan",
-          "year": 1997,
-          "mpg": 21,
-          "value": 20780
+          "year": null,
+          "mpg": null,
+          "value": 0
         },
         {
-          "id": 5,
-          "model": "Nissan",
-          "year": 1997,
-          "mpg": 21,
-          "value": 20780
+          "id": 1,
+          "model": "Honda",
+          "year": 2134,
+          "mpg": 4,
+          "value": 15500
         },
         {
-          "id": 6,
-          "model": "Nissan",
-          "year": 1997,
-          "mpg": 21,
-          "value": 20780
-        },
-        {
-          "id": 7,
-          "model": "Nissan",
-          "year": 1997,
-          "mpg": 21,
-          "value": 20780
-        },
-        {
-          "id": 8,
-          "model": "Nissan",
-          "year": 1997,
-          "mpg": 21,
-          "value": 20780
-        },
-        {
-          "id": 9,
-          "model": "Nissan",
-          "year": 1997,
-          "mpg": 21,
-          "value": 20780
+          "id": 2,
+          "model": "Honda",
+          "year": 2134,
+          "mpg": 3,
+          "value": 14500
         }
       ]
+    },
+    {
+      "username": "zpeng",
+      "password": "qwe",
+      "cars": []
+    },
+    {
+      "username": "zpeng",
+      "password": "asd",
+      "cars": []
     }
   ]
 }

@@ -1,34 +1,65 @@
 /**
  * Author: Zonglin Peng
  */
-
 // - - - - - - MACROS - - - - - - 
-const dir  = '/public/',
-      port = 3000;
+const dir  = '/public/';
+const port = 3000;
+const sampleCar = {'id': 0, 'model': 'sample', 'year': 2019, 'mpg': 23, 'value': 20000 };
+let dataAll;
+let auth = {}; //my user name
+
+// - - - - - - REQUIRES - - - - - - 
+
 //Server
-const express = require('express')
-const app = express()
+var bodyParser = require('body-parser')
+var cookieParser = require('cookie-parser')
+var express = require('express')
+var timeout = require('connect-timeout')
+var app = express()
+app.use(timeout('5s'))
+app.use(bodyParser())
+app.use(haltOnTimedout)
+app.use(cookieParser())
+app.use(haltOnTimedout)
+//Timeout
+function haltOnTimedout (req, res, next) {
+  if (!req.timedout) next()
+}
 //Database
 const low = require('lowdb')
 const FileSync = require('lowdb/adapters/FileSync')
 const adapter = new FileSync('db.json')
 const db = low(adapter)
-const bodyParser = require('body-parser')
-//Strategy
+//Passport
 const passport = require('passport');
 const Local = require('passport-local').Strategy;
 const session = require('express-session');
 //Favicon
-const favicon = require('serve-favicon'),
-app.use(favicon(__dirname + '/public/img/favicon.png'));
-
+const favicon = require('serve-favicon');
+var path = require('path')
+app.use(favicon(path.join(__dirname, 'public' , 'images', 'icon.png'))); //TODO
+//Cookie
+app.use(cookieParser());
+//Morgan
+const morgan = require('morgan');
+app.use(morgan('combined')); // Simple app that will log all request in the Apache combined format to STDOUT
 //Static
 app.use(express.static('public'))
 app.use(bodyParser.json())
-//Passport
-const sampleCar = {'id': 0, 'model': 'sample', 'year': 2019, 'mpg': 23, 'value': 20000 };
-let dataAll;
-let auth = {}; //my user name
+//ResponseTime
+const StatsD = require('node-statsd')
+const responseTime = require('response-time')
+const stats = new StatsD()
+stats.socket.on('error', function (error) {
+  console.error(error.stack)
+})
+app.use(responseTime(function (req, res, time) {
+  var stat = (req.method + req.url).toLowerCase()
+    .replace(/[:.]/g, '')
+    .replace(/\//g, '_')
+  stats.timing(stat, time)
+}))
+
 
 // - - - - - - PASSPORT - - - - - - 
 const myLocalStrategy = function( username, password, done ) {
@@ -83,24 +114,6 @@ app.post(
 
 // - - - - - - DB INITIATE - - - - - - 
 
-// {
-//   "posts": [
-//     {
-//       "username": "aaron", 
-//       "password": "aaronn",
-//       "cars": [
-//         {
-//           "id": 0, 
-//           "model": "sample", 
-//           "year": 2019, 
-//           "mpg": 23, 
-//           "value": 20000
-//         }      
-//       ]
-//     }
-//   ]
-// }
-
 db.defaults( { posts : [
     {
       "username": "aaron", 
@@ -147,6 +160,21 @@ getAllData();
 
 
 // - - - - - - DB HANDLERS - - - - - - 
+const addUsr = function (body) {
+  console.log('register: ' + body.username);
+  let check = db.get('post')
+    .get('posts')
+    .find({ username: body.username })
+    .get('cars')
+  if(check !== undefined) return false
+  else{
+    db.get('posts')
+    .push(body)
+    .write();
+  }
+  return true
+}
+
 const addCar = function (body) {
   let year = body.year;
   let mpg = body.mpg;
@@ -201,6 +229,20 @@ const removeDuplicate = function () {
     .write()
 }
 
+// - - - - - - REGISTER PAGE - - - - - - 
+// POST
+app.post('/register', (request, response) => {
+  console.log("BODY: " + JSON.stringify(request.body))
+  console.log('Cookies: ', request.cookies)
+  if(addUsr(request.body)){
+    getAllData();
+    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' });
+    response.end();
+  }else{
+    response.writeHead( 405, "Dup User", {'Content-Type': 'text/plain' });
+    response.end();
+  }
+});
 
 // - - - - - - TABLE PAGE - - - - - - 
 // GET
@@ -216,11 +258,8 @@ app.get('/getAll', (request, response) => {
 
 // POST
 app.post('/add', (request, response) => {
-  let data = request.body
-  console.log("BODY: " + JSON.stringify(data))
-  // console.log("BODY: " + data.mpg)
-  // console.log("BODY: " + data.model)
-
+  console.log("BODY: " + JSON.stringify(request.body))
+  console.log('Cookies: ', request.cookies)
   addCar(request.body);
   getAllData();
   response.writeHead( 200, "OK", {'Content-Type': 'text/plain' });
@@ -228,6 +267,8 @@ app.post('/add', (request, response) => {
 });
 
 app.post('/modify', (request, response) => {
+  console.log("BODY: " + JSON.stringify(request.body))
+  console.log('Cookies: ', request.cookies)
   modifyCar(request.body);
   getAllData();
   response.writeHead(200, { 'Content-Type': 'application/json' });
@@ -235,6 +276,8 @@ app.post('/modify', (request, response) => {
 });
 
 app.post('/delete', (request, response) => {
+  console.log("BODY: " + JSON.stringify(request.body))
+  console.log('Cookies: ', request.cookies)
   deleteCar(request.body);
   getAllData()
   response.writeHead(200, { 'Content-Type': 'application/json' });

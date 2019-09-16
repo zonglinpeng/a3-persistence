@@ -1,0 +1,12 @@
+/**
+* Author: Zonglin Peng
+*/
+
+.page {
+    margin: 10px 6% 100px;
+}
+
+body {
+    background-image: url("../images/bg.jpg");
+    background-size: cover
+}
