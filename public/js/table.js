@@ -123,21 +123,21 @@ const modifyCar = function( e ) {
 const infoAlert = function(){
   swal("How To Use", 
   ">Add: Select models and enter year and mpg.\n"+
-  ">Delete: Select models and enter its ID.\n"+
-  ">Modify: Select models enter its ID, year, and mpg.")
+  ">Delete: Select models and enter its ID. All models with same ID will be removed\n"+
+  ">Modify: Select models enter its ID, year, and mpg. First model with the given ID will be removed")
 }
 
 const addButton = document.getElementById('add');
 const deleteButton = document.getElementById('del');
 const modifyButton = document.getElementById('mod');
 const infoIcon = document.getElementById('info');                    
-const logoutButton = document.getElementById('logout');                      
+// const logoutButton = document.getElementById('logout');                      
 
 addButton.onclick = addCar;
 deleteButton.onclick = deleteCar;
 modifyButton.onclick = modifyCar;
 infoIcon.onclick = infoAlert;
-logoutButton.onclick = logout;
+// logoutButton.onclick = logout;
 
 window.onload = function() {
   getCar()
